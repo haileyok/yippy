@@ -4,6 +4,7 @@ import (
 	"os"
 
 	"github.com/haileyok/yippy/yippy"
+	_ "github.com/joho/godotenv/autoload"
 	"github.com/urfave/cli/v2"
 )
 
@@ -22,6 +23,11 @@ func main() {
 				EnvVars:  []string{"YIPPY_FILES_ROOT"},
 			},
 			&cli.StringFlag{
+				Name:     "session-secret",
+				Required: true,
+				EnvVars:  []string{"YIPPY_SESSION_SECRET"},
+			},
+			&cli.StringFlag{
 				Name:     "password",
 				Required: true,
 				EnvVars:  []string{"YIPPY_PASSWORD"},
@@ -35,9 +41,10 @@ func main() {
 
 var run = func(cmd *cli.Context) error {
 	args := &yippy.Args{
-		Addr:      cmd.String("addr"),
-		FilesRoot: cmd.String("files-root"),
-		Password:  cmd.String("password"),
+		Addr:          cmd.String("addr"),
+		FilesRoot:     cmd.String("files-root"),
+		SessionSecret: cmd.String("session-secret"),
+		Password:      cmd.String("password"),
 	}
 
 	y := yippy.NewYippy(args)
