@@ -65,7 +65,7 @@ func (y *Yippy) handleIndex(e echo.Context) error {
 		if f.IsDir() {
 			continue
 		}
-		if !strings.HasSuffix(f.Name(), ".mkv") {
+		if !strings.HasSuffix(f.Name(), ".mkv") && !strings.HasSuffix(f.Name(), ".mp4") {
 			continue
 		}
 		escaped := url.QueryEscape(currPath + f.Name())
